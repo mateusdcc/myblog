@@ -6,9 +6,15 @@
     "start": "next start"
   },
   "dependencies": {
+    "@tailwindcss/typography": "^0.5.4",
+    "daisyui": "^2.22.0",
+    "gray-matter": "^4.0.3",
     "next": "latest",
+    "nextjs-progressbar": "^0.0.14",
     "react": "18.1.0",
-    "react-dom": "18.1.0"
+    "react-dom": "18.1.0",
+    "react-markdown": "^8.0.3",
+    "remark-gfm": "^3.0.1"
   },
   "devDependencies": {
     "@types/node": "17.0.35",
