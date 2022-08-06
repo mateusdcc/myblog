@@ -3,32 +3,32 @@ import getPosts from "../lib/posts";
 import remarkGfm from 'remark-gfm'
 
 const Post = ({ title, date, markdown }) => (
-  <article className="flex flex-col items-center justify-center space-y-5 pt-5">
-    <div>
+  <article className="space-y-5 pt-5">
+    <div className="flex flex-col items-center justify-center">
       <h1 className="text-xl font-bold border-b-2 border-secondary">{title}</h1>
-      <time className="font-extralight text-xs tracking-wider text-gray-500">{date}</time>
+      <time className="font-extralight text-xs text-gray-500">{date}</time>
     </div>
     <div className="p-5">
       <ReactMarkdown remarkPlugins={[remarkGfm]} children={markdown}
         components={{
           table: props => {
             return (
-              <div className="overflow-x-auto m-10">
-                <table className="table w-full">
+              <div className="overflow-x-auto flex flex-col items-center justify-center mb-5 mt-5">
+                <table className="table-normal max-w-screen">
                   <thead>
                     <tr>
                       {props.children[0].props.children[0].props.children.map((th, i) => (
 
 
-                        <td key={i} className="m-48 p-5 text-base font-normal">{th.props.children}</td>
+                        <td key={i} className="p-5 text-sm font-normal">{th.props.children}</td>
                       ))}
                     </tr>
                   </thead>
                   <tbody>
                     {props.children[1].props.children.map((tr) => (
-                      <tr key={tr.key} className="hover text-sm font-extralight m-0">
+                      <tr key={tr.key} className="hover:bg-secondary text-sm">
                         {tr.props.children.map((td, i) => (
-                          <td key={i} className="m-32">{td.props.children}</td>
+                          <td key={i} className="">{td.props.children}</td>
                         ))}
                       </tr>
                     ))}
