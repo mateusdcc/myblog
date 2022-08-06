@@ -49,7 +49,7 @@ function MyApp({ Component, pageProps }) {
     <>
       <Head>
         <title>MateusDCC Blog</title>
-        <link rel="icon" href="/favicon.ico" />
+        <link rel="icon" href="/pfp.jpg" />
       </Head>
 
     { /* Navbar */ }
