@@ -1,7 +1,7 @@
 ---
 title: "Hello World"
 date: "05/08/2022"
-desc: "Testing"
+desc: "About me"
 ---
 
 Hello! My name is *Mateus Cavalcanti*, also known as ***MateusDCC***. I am a student from Brazil and a self-taught developer, my goal is to become a software developer. To reach my goal, I've been studying alot, as result of that I already know well C, Python, Javascript, PHP, HTML, CSS, with little experience with C++ and at the moment learning Rust.
