@@ -16,4 +16,4 @@ I have studied with the following resources:
 | The Rust Programming Language | Steve Klabnik & Carol Nichols | |
 | Mozilla Javascript Documentation | Mozilla | |
 
-For sure there are a lot more, but unfortunately I don't remember them.
+Of course there is a lot more, but unfortunately I don't remember them.
