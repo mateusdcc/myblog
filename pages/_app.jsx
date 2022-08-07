@@ -45,6 +45,14 @@ function MyApp({ Component, pageProps }) {
     }
   }
 
+  React.useEffect(() => {
+    if (process.browser) {
+      document.getElementById("menu-button").addEventListener("blur", () => {
+        setIsOpen(false);
+      } );
+    }
+  } , []);
+
   return (
     <>
       <Head>
