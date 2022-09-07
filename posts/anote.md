@@ -4,11 +4,9 @@ date: "09/06/2022"
 desc: "My markdown note taking app"
 ---
 
-# Anote
-
 Anote is a note taking app that allows you to take notes and organize them into notebooks. It is a web app that is built with NextJS and React. It uses a Supabase to manage the database and authentication. It is deployed on Vercel.
 
-The app is still in development and is not yet ready for production. It is currently in the alpha stage and is being developed by me, [Aidan](https://mateusdcc.github.io).
+The app is still in development and is not yet ready for production. It is currently in the alpha stage and is being developed by me, [Mateus](https://github.com/mateusdcc)
 
 ## Why Anote?
 
