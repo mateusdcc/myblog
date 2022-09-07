@@ -3,7 +3,7 @@ import getPosts from "../lib/posts";
 import remarkGfm from 'remark-gfm'
 
 const Post = ({ title, date, markdown }) => (
-  <article className="space-y-5 pt-5">
+  <article className="space-y-5 pt-5 grid place-items-center">
     <div className="flex flex-col items-center justify-center space-y-1">
       <h1 className="text-xl font-bold border-b-2 border-secondary">{title}</h1>
       <time className="font-extralight text-xs text-gray-500">{date}</time>
