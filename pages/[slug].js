@@ -8,7 +8,7 @@ const Post = ({ title, date, markdown }) => (
       <h1 className="text-xl font-bold border-b-2 border-secondary">{title}</h1>
       <time className="font-extralight text-xs text-gray-500">{date}</time>
     </div>
-    <div className="p-5">
+    <div className="p-5 prose lg:proxe-xl">
       <ReactMarkdown remarkPlugins={[remarkGfm]} children={markdown}
         components={{
           table: props => {
