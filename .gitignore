@@ -28,6 +28,12 @@ yarn-error.log*
 # local env files
 .env*.local
 
+# agent harness
+.pi/
+.mcp.json
+AGENTS.md
+CLAUDE.md
+
 # vercel
 .vercel
 
