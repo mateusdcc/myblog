@@ -3,6 +3,7 @@ import Link from "next/link";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
 import getPosts from "../lib/posts";
+import { normalizePostSlug, postPath } from "../lib/post-path";
 
 const markdownComponents = {
   a: ({ href, children }) => (
@@ -28,8 +29,8 @@ export default function Post({ slug, title, date, desc, markdown, posts }) {
       "image": "https://github.com/mateusdcc.png",
       "url": "https://mateusdcc.vercel.app"
     },
-    "url": `https://mateusdcc.vercel.app/${slug}`,
-    "mainEntityOfPage": `https://mateusdcc.vercel.app/${slug}`
+    "url": `https://mateusdcc.vercel.app${postPath(slug)}`,
+    "mainEntityOfPage": `https://mateusdcc.vercel.app${postPath(slug)}`
   };
 
   return (
@@ -37,12 +38,12 @@ export default function Post({ slug, title, date, desc, markdown, posts }) {
       <Head>
         <title>{title} | MateusDCC Blog</title>
         <meta name="description" content={desc || title} />
-        <link rel="canonical" href={`https://mateusdcc.vercel.app/${slug}`} />
+        <link rel="canonical" href={`https://mateusdcc.vercel.app${postPath(slug)}`} />
 
         <meta property="og:type" content="article" />
         <meta property="og:title" content={`${title} | MateusDCC Blog`} />
         <meta property="og:description" content={desc || title} />
-        <meta property="og:url" content={`https://mateusdcc.vercel.app/${slug}`} />
+        <meta property="og:url" content={`https://mateusdcc.vercel.app${postPath(slug)}`} />
         <meta property="og:image" content="https://github.com/mateusdcc.png" />
 
         <meta name="twitter:card" content="summary" />
@@ -68,11 +69,11 @@ export default function Post({ slug, title, date, desc, markdown, posts }) {
         </div>
         <footer className="post-footer post-navigation" aria-label="Post navigation">
           {previousPost ? (
-            <Link href={`/${previousPost.slug}`}><span>← previous</span><small>{previousPost.title}</small></Link>
+            <Link href={postPath(previousPost.slug)}><span>← previous</span><small>{previousPost.title}</small></Link>
           ) : <span className="post-nav-disabled"><span>← previous</span><small>start of index</small></span>}
           <Link href="/">:buffer blog</Link>
           {nextPost ? (
-            <Link href={`/${nextPost.slug}`}><span>next →</span><small>{nextPost.title}</small></Link>
+            <Link href={postPath(nextPost.slug)}><span>next →</span><small>{nextPost.title}</small></Link>
           ) : <span className="post-nav-disabled"><span>next →</span><small>end of index</small></span>}
         </footer>
       </article>
@@ -90,7 +91,7 @@ export default function Post({ slug, title, date, desc, markdown, posts }) {
           <h2 className="panel-title"># OTHER BUFFERS</h2>
           <div className="post-index-list">
             {posts.filter((post) => post.title !== title).map((post) => (
-              <Link href={`/${post.slug}`} className="post-index-item" key={post.slug}>
+              <Link href={postPath(post.slug)} className="post-index-item" key={post.slug}>
                 <span>{post.title}</span><small>{post.date}</small>
               </Link>
             ))}
@@ -108,11 +109,15 @@ export default function Post({ slug, title, date, desc, markdown, posts }) {
 
 export async function getStaticPaths() {
   const posts = await getPosts();
-  return { paths: posts.map(({ slug }) => ({ params: { slug } })), fallback: false };
+  const paths = posts.flatMap(({ slug }) => [
+    { params: { slug } },
+    { params: { slug: postPath(slug).slice(1) } },
+  ]);
+  return { paths, fallback: false };
 }
 
 export async function getStaticProps({ params }) {
   const posts = await getPosts();
-  const post = posts.find((item) => item.slug === params.slug);
+  const post = posts.find((item) => item.slug === normalizePostSlug(params.slug));
   return { props: { ...post, posts } };
 }

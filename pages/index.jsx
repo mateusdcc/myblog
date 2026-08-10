@@ -4,6 +4,7 @@ import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
 import { useMemo, useState } from "react";
 import getPosts from "../lib/posts";
+import { postPath } from "../lib/post-path";
 import { useShell } from "../components/AppShell";
 
 const markdownComponents = {
@@ -85,7 +86,7 @@ function BlogReader({ post, position, total, previousPost, nextPost, onNavigate,
         <button type="button" onClick={() => previousPost && onNavigate(previousPost.slug)} disabled={!previousPost}>
           <span>← previous</span><small>{previousPost?.title || "start of index"}</small>
         </button>
-        <Link href={`/${post.slug}`}>:open page</Link>
+        <Link href={postPath(post.slug)}>:open page</Link>
         <button type="button" onClick={() => nextPost && onNavigate(nextPost.slug)} disabled={!nextPost}>
           <span>next →</span><small>{nextPost?.title || "end of index"}</small>
         </button>
@@ -130,7 +131,7 @@ export default function Blog({ posts }) {
       "headline": post.title,
       "description": post.desc,
       "datePublished": post.date,
-      "url": `https://mateusdcc.vercel.app/${post.slug}`
+      "url": `https://mateusdcc.vercel.app${postPath(post.slug)}`
     }))
   };
 
@@ -139,12 +140,12 @@ export default function Blog({ posts }) {
       <Head>
         <title>{selectedPost ? `${selectedPost.title} | MateusDCC Blog` : "MateusDCC Blog"}</title>
         <meta name="description" content={selectedPost?.desc || "MateusDCC personal engineering blog and technical notes index."} />
-        <link rel="canonical" href={`https://mateusdcc.vercel.app/${selectedPost.slug}`} />
+        <link rel="canonical" href={`https://mateusdcc.vercel.app${postPath(selectedPost.slug)}`} />
 
         <meta property="og:type" content="article" />
         <meta property="og:title" content={`${selectedPost.title} | MateusDCC Blog`} />
         <meta property="og:description" content={selectedPost.desc || "MateusDCC technical post."} />
-        <meta property="og:url" content={`https://mateusdcc.vercel.app/${selectedPost.slug}`} />
+        <meta property="og:url" content={`https://mateusdcc.vercel.app${postPath(selectedPost.slug)}`} />
         <meta property="og:image" content="https://github.com/mateusdcc.png" />
 
         <meta name="twitter:card" content="summary" />
