@@ -1,5 +1,6 @@
 import Head from "next/head";
 import Link from "next/link";
+import { whoIsMe } from "../lib/who-is-me";
 import { createContext, useContext, useEffect, useState } from "react";
 
 const ShellContext = createContext({
@@ -36,15 +37,14 @@ function WhoisBuffer({ onClose }) {
         <div className="buffer-body">
           <section className="bio-profile-grid" aria-label="Profile">
             <div className="bio-profile-identity">
-              <img src="https://github.com/mateusdcc.png" alt="MateusDCC profile" className="bio-profile-icon" />
-              <strong>MateusDCC</strong>
-              <span>Software Engineer</span>
+              <img src={whoIsMe.avatar} alt={`${whoIsMe.name} profile`} className="bio-profile-icon" />
+              <strong>{whoIsMe.name}</strong>
+              <span>{whoIsMe.role}</span>
             </div>
             <div className="bio-profile-description">
               <p className="panel-title"># PROFILE &amp; SUMMARY</p>
               <p>
-                MateusDCC is a software engineer creating modern web systems, developer tools, and technical architecture articles.
-                This indexer maps official portfolio, blog, and code repository links into an interconnected knowledge graph network.
+                {whoIsMe.summary} {whoIsMe.context.description}
               </p>
             </div>
           </section>
@@ -52,20 +52,20 @@ function WhoisBuffer({ onClose }) {
           <div className="buffer-info-grid">
             <section className="panel-block">
               <h2 className="panel-title"># WHO IS MATEUSDCC?</h2>
-              <p>Full-stack developer focused on clean architecture, minimal design systems, functional web tools, and open source code.</p>
+              <p>{whoIsMe.bio}</p>
             </section>
             <section className="panel-block">
               <h2 className="panel-title"># WHAT IS THIS WEBSITE?</h2>
-              <p>An Obsidian-style visual graph indexer acting as a central directory for all official MateusDCC URLs.</p>
+              <p>{whoIsMe.context.description}</p>
             </section>
           </div>
 
           <section className="panel-block">
             <h2 className="panel-title"># DIRECT URL INDEX</h2>
             <div className="direct-links-grid">
-              <ExternalLink href="https://mateusdcc.vercel.app"><span className="direct-link-card">[Blog]<small>mateusdcc.vercel.app</small></span></ExternalLink>
-              <ExternalLink href="https://github.com/mateusdcc"><span className="direct-link-card">[GitHub] Profile<small>github.com/mateusdcc</small></span></ExternalLink>
-              <ExternalLink href="https://mateusdcc.github.io"><span className="direct-link-card">[Me] Portfolio<small>mateusdcc.github.io</small></span></ExternalLink>
+              <ExternalLink href={whoIsMe.links[1].url}><span className="direct-link-card">{whoIsMe.links[1].label}<small>{whoIsMe.links[1].url.replace("https://", "")}</small></span></ExternalLink>
+              <ExternalLink href={whoIsMe.links[2].url}><span className="direct-link-card">{whoIsMe.links[2].label}<small>{whoIsMe.links[2].url.replace("https://", "")}</small></span></ExternalLink>
+              <ExternalLink href={whoIsMe.links[0].url}><span className="direct-link-card">{whoIsMe.links[0].label}<small>{whoIsMe.links[0].url.replace("https://", "")}</small></span></ExternalLink>
             </div>
           </section>
 
@@ -101,14 +101,11 @@ export default function AppShell({ children }) {
   const personSchema = {
     "@context": "https://schema.org",
     "@type": "Person",
-    "name": "MateusDCC",
-    "url": "https://mateusdcc.vercel.app",
-    "image": "https://github.com/mateusdcc.png",
-    "sameAs": [
-      "https://github.com/mateusdcc",
-      "https://mateusdcc.github.io"
-    ],
-    "jobTitle": "Software Engineer"
+    "name": whoIsMe.name,
+    "url": whoIsMe.website,
+    "image": whoIsMe.avatar,
+    "sameAs": whoIsMe.links.map((link) => link.url),
+    "jobTitle": whoIsMe.role
   };
 
   return (
