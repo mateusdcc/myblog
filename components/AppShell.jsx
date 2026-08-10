@@ -70,6 +70,11 @@ function WhoisBuffer({ onClose }) {
           </section>
 
           <section className="panel-block">
+            <h2 className="panel-title"># OPERATING PRINCIPLE</h2>
+            <p>{whoIsMe.operatingPrinciple}</p>
+          </section>
+
+          <section className="panel-block">
             <h2 className="panel-title"># SEO &amp; STANDARDS</h2>
             <p>Structured with semantic HTML5 tags, JSON-LD Schema metadata, and accessibility standards for search engine indexing.</p>
           </section>

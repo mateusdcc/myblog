@@ -22,4 +22,4 @@ Each project includes `id`, `title`, `content`, `slug`, and `date`. The `slug` i
 - `GET /who-is-me` returns the shared MateusDCC profile model as JSON.
 - `GET /api/who-is-me` is the underlying API route.
 
-The profile model is versioned with `schema: "mateusdcc.who-is-me"` and includes identity, avatar, summary, bio, website, canonical links, and site context so other MateusDCC websites can consume the same shape.
+The profile model is versioned with `schema: "mateusdcc.who-is-me"` and includes identity, avatar, summary, bio, operating principle, website, canonical links, and site context so other MateusDCC websites can consume the same shape.
