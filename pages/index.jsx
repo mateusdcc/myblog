@@ -2,7 +2,7 @@ import Head from "next/head";
 import Link from "next/link";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import getPosts from "../lib/posts";
 import { postPath } from "../lib/post-path";
 import { useShell } from "../components/AppShell";
@@ -11,6 +11,13 @@ const markdownComponents = {
   a: ({ href, children }) => <a href={href} target="_blank" rel="noopener noreferrer">{children}</a>,
   table: ({ children }) => <div className="markdown-table-wrap"><table>{children}</table></div>,
 };
+
+function syncPostAddress(slug) {
+  if (typeof window === "undefined") return;
+  const path = postPath(slug);
+  if (window.location.pathname === path) return;
+  window.history.replaceState(window.history.state, "", path);
+}
 
 function BlogTree({ posts, selectedSlug, onSelect, query, onQueryChange, onClose, onCollapse }) {
   const { drawerOpen } = useShell();
@@ -112,6 +119,10 @@ export default function Blog({ posts }) {
   const selectedIndex = posts.findIndex((post) => post.slug === selectedPost?.slug);
   const previousPost = posts[selectedIndex - 1] || null;
   const nextPost = posts[selectedIndex + 1] || null;
+
+  useEffect(() => {
+    if (selectedPost) syncPostAddress(selectedPost.slug);
+  }, [selectedPost?.slug]);
 
   if (!selectedPost) return null;
 
